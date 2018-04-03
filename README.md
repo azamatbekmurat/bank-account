@@ -7,6 +7,9 @@
 ## Description
 
 This webpage where a user can create a single bank account with an initial deposit amount, which also allows the user to make withdrawals, deposits and see the balance of the account.
+* Example:
+  * Input for initial Deposit: 1500
+  * Output for current balance: 1500
 
 ## Setup/Installation Requirements
 

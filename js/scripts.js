@@ -1,5 +1,5 @@
+//business logic
 var accounts=[];
-
 
 function bankAccount(accountName, initialDeposit){
   this.accountName=accountName;
@@ -18,54 +18,28 @@ function searchForAccount(searchName) {
   return currentBalance;
 }
 
-function deposit(inputValue, currentBalance) {
-  currentBalance+=inputValue;
-}
-
 function depositByName(searchName, depositAmount) {
-  var currentBalance = "";
   accounts.forEach(function(account){
     if (account.accountName === searchName) {
       account.balance = account.balance+depositAmount;
-      console.log(account.balance);
-      console.log("ACCOUNT FOUND by deposit");
     }
   });
-  //return currentBalance;
 }
 
 function withdrawByName(searchName, withdrawalAmount) {
-  var currentBalance = "";
   accounts.forEach(function(account){
     if (account.accountName === searchName) {
       account.balance = account.balance-withdrawalAmount;
-      console.log(account.balance);
-      console.log("ACCOUNT FOUND by deposit");
     }
   });
-  //return currentBalance;
 }
 
-bankAccount.prototype.deposit = function() {
-  this.balance += inputDeposit;
-  // if (this.accountName===inputName) {
-  //   this.balance += depositAmount;
-  // } else{
-  //   alert("Customer account not found. Please register");
-  // }
+function resetFields() {
+    $("#nameBox").val("");
+    $("#initialDepositBox").val("");
 }
 
-// bankAccount.prototype.withdrawal = function() {
-//   return this.balance
-//   if (this.accountName===inputName) {
-//     this.balance -= withdrawalAmount;
-//   } else{
-//     alert("Customer account not found. Please register");
-//   }
-// }
-
-
-
+//user interface logic
 $(document).ready(function() {
   $("form#newAccount").submit(function(event) {
     var accountName=$("#nameBox").val();
@@ -76,7 +50,7 @@ $(document).ready(function() {
     accounts.push(newBankAccount);
 
     console.log(accounts);
-
+    resetFields();
   });
 
   $("form#signIn").submit(function(event) {
@@ -93,9 +67,6 @@ $(document).ready(function() {
     $("#withdrawal").toggle();
     $("#currentBalance").toggle();
 
-    //console.log(curBalance);
-    //$("#currentBalance").getBalance(currentAccountName);
-    //$("#currentBalance").append(accounts.find(""));
     $("form#deposit").submit(function(event) {
       event.preventDefault();
       var depositAmount=parseFloat($("#depositBox").val());
