@@ -12,14 +12,14 @@ bankAccount.prototype.getBalance = function(inputName) {
   }
 }
 
-// function searchForAccount(searchName) {
-//   accounts.forEach(function(account){
-//     if (account.accountName === searchName)
-//     {
-//       return account;
-//     }
-//   });
-// }
+function searchForAccount(searchName) {
+  accounts.forEach(function(account){
+    if (account.accountName === searchName)
+    {
+      return account.balance;
+    }
+  });
+}
 
 // bankAccount.prototype.deposit = function() {
 //   if (this.accountName===inputName) {
@@ -57,19 +57,25 @@ $(document).ready(function() {
     event.preventDefault();
     var currentAccountName=$("#signInNameBox").val();
     console.log("LOGIN NAME: "+currentAccountName);
-    var foundAccount = searchForAccount(currentAccountName);
+    //var foundAccount = searchForAccount(currentAccountName);
 
-  //  var curBalance = newBankAccount.getBalance(currentAccountName);
-  accounts.forEach(function(account){
-    if (account.accountName === currentAccountName)
-    {
-      console.log(account.balance);
-      console.log("ACCOUNT FOUND");
-    }
+  //var curBalance = newBankAccount.getBalance(currentAccountName);
+    var currentBalance = "";
+    accounts.forEach(function(account){
+      if (account.accountName === currentAccountName)
+      {
+        currentBalance=account.balance;
+        console.log(account.balance);
+        console.log("ACCOUNT FOUND");
+      } 
+      console.log(currentBalance);
     // else{
     //   console.log("name not found");
     // }
   });
+
+    // console.log(curBalance);
+     $("#currentBalance").append(currentBalance);
 
     $("#signIn").toggle();
     $("#newAccount").toggle();
