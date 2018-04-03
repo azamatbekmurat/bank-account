@@ -6,29 +6,55 @@ function bankAccount(accountName, initialDeposit){
   this.balance=initialDeposit;
 }
 
-bankAccount.prototype.getBalance = function(inputName) {
-  if (this.accountName===inputName){
-    return this.balance;
-  }
-}
-
 function searchForAccount(searchName) {
+  var currentBalance = "";
   accounts.forEach(function(account){
-    if (account.accountName === searchName)
-    {
-      return account.balance;
+    if (account.accountName === searchName) {
+      currentBalance=account.balance;
+      console.log(account.balance);
+      console.log("ACCOUNT FOUND");
     }
   });
+  return currentBalance;
 }
 
-// bankAccount.prototype.deposit = function() {
-//   if (this.accountName===inputName) {
-//     this.balance += depositAmount;
-//   } else{
-//     alert("Customer account not found. Please register");
-//   }
-// }
-//
+function deposit(inputValue, currentBalance) {
+  currentBalance+=inputValue;
+}
+
+function depositByName(searchName, depositAmount) {
+  var currentBalance = "";
+  accounts.forEach(function(account){
+    if (account.accountName === searchName) {
+      account.balance = account.balance+depositAmount;
+      console.log(account.balance);
+      console.log("ACCOUNT FOUND by deposit");
+    }
+  });
+  //return currentBalance;
+}
+
+function withdrawByName(searchName, withdrawalAmount) {
+  var currentBalance = "";
+  accounts.forEach(function(account){
+    if (account.accountName === searchName) {
+      account.balance = account.balance-withdrawalAmount;
+      console.log(account.balance);
+      console.log("ACCOUNT FOUND by deposit");
+    }
+  });
+  //return currentBalance;
+}
+
+bankAccount.prototype.deposit = function() {
+  this.balance += inputDeposit;
+  // if (this.accountName===inputName) {
+  //   this.balance += depositAmount;
+  // } else{
+  //   alert("Customer account not found. Please register");
+  // }
+}
+
 // bankAccount.prototype.withdrawal = function() {
 //   return this.balance
 //   if (this.accountName===inputName) {
@@ -57,25 +83,9 @@ $(document).ready(function() {
     event.preventDefault();
     var currentAccountName=$("#signInNameBox").val();
     console.log("LOGIN NAME: "+currentAccountName);
-    //var foundAccount = searchForAccount(currentAccountName);
 
-  //var curBalance = newBankAccount.getBalance(currentAccountName);
-    var currentBalance = "";
-    accounts.forEach(function(account){
-      if (account.accountName === currentAccountName)
-      {
-        currentBalance=account.balance;
-        console.log(account.balance);
-        console.log("ACCOUNT FOUND");
-      } 
-      console.log(currentBalance);
-    // else{
-    //   console.log("name not found");
-    // }
-  });
-
-    // console.log(curBalance);
-     $("#currentBalance").append(currentBalance);
+    var foundAccount= searchForAccount(currentAccountName);
+    $("#currentBalance").append(foundAccount);
 
     $("#signIn").toggle();
     $("#newAccount").toggle();
@@ -83,15 +93,29 @@ $(document).ready(function() {
     $("#withdrawal").toggle();
     $("#currentBalance").toggle();
 
-
     //console.log(curBalance);
-
     //$("#currentBalance").getBalance(currentAccountName);
     //$("#currentBalance").append(accounts.find(""));
+    $("form#deposit").submit(function(event) {
+      event.preventDefault();
+      var depositAmount=parseFloat($("#depositBox").val());
+      console.log("LOGIN NAME: "+currentAccountName);
 
+      depositByName(currentAccountName, depositAmount);
+      var foundAccount= searchForAccount(currentAccountName);
+      $("#currentBalance").text(foundAccount);
+
+    });
+
+    $("form#withdrawal").submit(function(event) {
+      event.preventDefault();
+      var withdrawalAmount=parseFloat($("#withdrawalBox").val());
+      console.log("LOGIN NAME: "+currentAccountName);
+
+      withdrawByName(currentAccountName, withdrawalAmount);
+      var foundAccount= searchForAccount(currentAccountName);
+      $("#currentBalance").text(foundAccount);
+
+    });
   });
-
-
-
-
 });
